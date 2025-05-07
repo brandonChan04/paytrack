@@ -23,23 +23,14 @@
             <div class="inner-button flex">
               <img src="../assets/plus.svg" alt="" />
             </div>
-            <span>New Invoice</span>
+            <span class="button-text">New Invoice</span>
           </div>
         </div>
       </div>
-      <!-- Invoices -->
-      <!-- <div v-if="invoiceData.length > 0">
-        <Invoice v-for="(invoice, index) in filteredData" :invoice="invoice" :key="index" />
-      </div> -->
-      <!-- <div v-else class="empty flex flex-column">
-        <img src="@/assets/illustration-empty.svg" alt="" />
-        <h3>There is nothing here</h3>
-        <p>Create a new invoice by clicking the New Invoice button and get started</p>
-      </div> -->
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   export default {
     name: "Home",
     data() {
@@ -65,28 +56,10 @@
         this.filteredInvoice = e.target.innerText;
       },
     },
-    computed: {
-      ...mapState(["invoiceData"]),
-  
-      filteredData() {
-        return this.invoiceData.filter((invoice) => {
-          if (this.filteredInvoice === "Draft") {
-            return invoice.invoiceDraft === true;
-          }
-          if (this.filteredInvoice === "Pending") {
-            return invoice.invoicePending === true;
-          }
-          if (this.filteredInvoice === "Paid") {
-            return invoice.invoicePaid === true;
-          }
-          return invoice;
-        });
-      },
-    },
   };
-  </script>
+</script>
   
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
   .home {
     color: #fff;
   
@@ -142,6 +115,10 @@
             }
           }
         }
+
+        .button-text {
+          background-color: #7c5dfa;
+        }
   
         .button {
           padding: 8px 10px;
@@ -187,5 +164,5 @@
       }
     }
   }
-  </style>
+</style>
   

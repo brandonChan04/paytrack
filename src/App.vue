@@ -3,6 +3,8 @@
     <div v-if="!mobile" class="app flex flex-column">
       <Navigation/>
       <div class="app-content flex flex-column">
+        <InvoiceModal/>
+        <router-view></router-view>
       </div>
     </div>
     <div v-else class="mobile-message flex flex-column">
@@ -14,7 +16,7 @@
 
 <script>
 import Navigation from './components/Navigation.vue';
-// import Home from './views/Home.vue';
+import InvoiceModal from './components/InvoiceModal.vue';
 export default {
   data() {
     return {
@@ -22,7 +24,8 @@ export default {
     };
   },
   components: {
-    Navigation
+    Navigation,
+    InvoiceModal
   },
   created() {
     window.addEventListener("resize", this.checkScreen);
