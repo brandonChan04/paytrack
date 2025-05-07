@@ -1,18 +1,18 @@
 <template>
-    <header class="flex">
-      <div class="branding flex">
-        <img src="../assets/dollar-solid.png" alt="" />
-      </div>
-    </header>
-  </template>
+  <header class="flex">
+    <div class="branding flex">
+      <img src="../assets/dollar-solid.png" alt="" />
+    </div>
+  </header>
+</template>
   
-  <script>
+<script>
   export default {
     name: "navigation",
   };
-  </script>
+</script>
   
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
   header {
     z-index: 99;
     flex-direction: row;
@@ -39,5 +39,5 @@
       }
     }
   }
-  </style>
+</style>
   

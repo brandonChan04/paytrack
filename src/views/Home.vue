@@ -1,36 +1,37 @@
 <template>
-    <div class="home container">
-      <!-- Header -->
-      <div class="header flex">
-        <div class="left flex flex-column">
-          <h1>Invoices</h1>
-          <span>There are 5 total invoices</span>
+  <div class="home container">
+    <!-- Header -->
+    <div class="header flex">
+      <div class="left flex flex-column">
+        <h1>Invoices</h1>
+        <span>There are 5 total invoices</span>
+      </div>
+      <div class="right flex">
+        <div @click="toggleFilterMenu" class="filter flex">
+          <span
+            >Filter by status <span v-if="filteredInvoice">: {{ filteredInvoice }}</span></span
+          >
+          <img src="../assets/arrow-down.svg" alt="" />
+          <ul v-show="filterMenu" class="filter-menu">
+            <li @click="filteredInvoices">Draft</li>
+            <li @click="filteredInvoices">Pending</li>
+            <li @click="filteredInvoices">Paid</li>
+            <li @click="filteredInvoices">Clear Filter</li>
+          </ul>
         </div>
-        <div class="right flex">
-          <div @click="toggleFilterMenu" class="filter flex">
-            <span
-              >Filter by status <span v-if="filteredInvoice">: {{ filteredInvoice }}</span></span
-            >
-            <img src="../assets/arrow-down.svg" alt="" />
-            <ul v-show="filterMenu" class="filter-menu">
-              <li @click="filteredInvoices">Draft</li>
-              <li @click="filteredInvoices">Pending</li>
-              <li @click="filteredInvoices">Paid</li>
-              <li @click="filteredInvoices">Clear Filter</li>
-            </ul>
+        <div @click="newInvoice" class="button flex">
+          <div class="inner-button flex">
+            <img src="../assets/plus.svg" alt="" />
           </div>
-          <div @click="newInvoice" class="button flex">
-            <div class="inner-button flex">
-              <img src="../assets/plus.svg" alt="" />
-            </div>
-            <span class="button-text">New Invoice</span>
-          </div>
+          <span class="button-text">New Invoice</span>
         </div>
       </div>
     </div>
+  </div>
 </template>
   
 <script>
+  import { mapMutations } from 'vuex';
   export default {
     name: "Home",
     data() {
@@ -43,7 +44,13 @@
       // Invoice,
     },
     methods: {
-  
+      ...mapMutations(['TOGGLE_INVOICE']),
+      newInvoice() {
+        console.log("tog");
+        // this.$store.commit('TOGGLE_INVOICE');
+        this.TOGGLE_INVOICE();
+
+      },
       toggleFilterMenu() {
         this.filterMenu = !this.filterMenu;
       },

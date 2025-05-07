@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^11.7.0",
     "my-vue-app": "file:",
+    "uid": "^2.0.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1",
     "vuex": "^4.1.0"
