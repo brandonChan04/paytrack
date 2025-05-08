@@ -158,7 +158,7 @@
       this.invoiceDate = new Date(this.invoiceDateUnix).toLocaleDateString("en-us", this.dateOptions);
     },
     methods: {
-      ...mapMutations(['TOGGLE_INVOICE']),
+      ...mapMutations(['TOGGLE_INVOICE', 'TOGGLE_MODAL']),
       closeInvoice() {
         console.log("closeing infsdf");
         // this.$store.commit('TOGGLE_INVOICE');
@@ -166,11 +166,17 @@
       },
 
       calInvoiceTotal() {
-      this.invoiceTotal = 0;
-      this.invoiceItemList.forEach((item) => {
-        this.invoiceTotal += item.total;
-      });
-    },
+        this.invoiceTotal = 0;
+        this.invoiceItemList.forEach((item) => {
+          this.invoiceTotal += item.total;
+        });
+      },
+
+      checkClick(e) {
+        if (e.target === this.$refs.invoiceWrap) {
+          this.TOGGLE_MODAL();
+        }
+      },
 
       publishInvoice() {
         this.invoicePending = true;
