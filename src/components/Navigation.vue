@@ -1,7 +1,7 @@
 <template>
   <header class="flex">
     <div class="branding flex">
-      <img src="../assets/dollar-solid.png" alt="" />
+      <img src="../assets/paytrack-logo.png" alt="" />
     </div>
   </header>
 </template>
@@ -28,14 +28,14 @@
       border-radius: 0 20px 20px 0;
       background-color: #7c5dfa;
       justify-content: center;
-      padding: 24px;
+      padding: 16px;
       @media (min-width: 900px) {
         width: 100%;
       }
   
       img {
         width: auto;
-        height: 30px;
+        height: 50px;
       }
     }
   }
