@@ -1,6 +1,5 @@
 <template>
   <div class="modal flex">
-    <h1>fjsdkfjlksdjk</h1>
     <div class="modal-content">
       <p>Are you sure you want to exit? Your changes will not be saved?</p>
       <div class="actions flex">

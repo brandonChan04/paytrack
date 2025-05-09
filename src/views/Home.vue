@@ -4,7 +4,7 @@
     <div class="header flex">
       <div class="left flex flex-column">
         <h1>Invoices</h1>
-        <span>There are 5 total invoices</span>
+        <span>There are {{ invoiceData.length }} total invoices</span>
       </div>
       <div class="right flex">
         <div @click="toggleFilterMenu" class="filter flex">
@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
-    <div v-if="invoiceData.length < 0">
-      <Invoice v-for="(invoice, index) in invoiceData":invoice="invoice" :key="index"/>
+    <div v-if="invoiceData.length > 0">
+      <Invoice v-for="(invoice, index) in filteredData":invoice="invoice" :key="index"/>
     </div>
     <div v-else class="empty flex flex-column">
       <img src="../assets/empty.svg" alt="" />
@@ -53,10 +53,11 @@
       Invoice
     },
     methods: {
-      ...mapMutations(['TOGGLE_INVOICE']),
+      ...mapMutations(['TOGGLE_INVOICE', 'TOGGLE_EDIT_INVOICE']),
       newInvoice() {
-        console.log("tog");
-        // this.$store.commit('TOGGLE_INVOICE');
+        if(this.editInvoice === true) {
+          this.TOGGLE_EDIT_INVOICE();
+        }
         this.TOGGLE_INVOICE();
 
       },
@@ -73,7 +74,22 @@
       },
     },
     computed: {
-      ...mapState(["invoiceData"])
+      ...mapState(["invoiceData", "editInvoice"]),
+
+      filteredData() {
+        return this.invoiceData.filter((invoice) => {
+          if (this.filteredInvoice === "Draft") {
+            return invoice.invoiceDraft === true;
+          }
+          if (this.filteredInvoice === "Pending") {
+            return invoice.invoicePending === true;
+          }
+          if (this.filteredInvoice === "Paid") {
+            return invoice.invoicePaid === true;
+          }
+          return invoice;
+        });
+      },
     }
   };
 </script>
