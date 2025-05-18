@@ -1,120 +1,166 @@
 <template>
-    <div class="login-container">
+  <div class="login-container">
+    <div class="login-box">
+        <div @click="home">
+            <img class="logo" src="../assets/paytrack-logo.png" alt="PayTrack Logo"/>
+        </div>
         <h1>Login</h1>
         <form @submit.prevent="handleLogin">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    v-model="email"
-                    placeholder="Enter your email"
-                    required
-                />
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    v-model="password"
-                    placeholder="Enter your password"
-                    required
-                />
-            </div>
-            <button type="submit" class="login-button">Login</button>
-            <button @click="signUp" class="login-button">Sign Up</button>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input
+            type="email"
+            id="email"
+            v-model="email"
+            placeholder="Enter your email"
+            required
+            />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+            type="password"
+            id="password"
+            v-model="password"
+            placeholder="Enter your password"
+            required
+            />
+        </div>
+        <div class="buttons">
+            <button type="submit" class="btn">Login</button>
+            <h3>or</h3>
+            <button type="button" @click="signUp" class="btn">Sign Up</button>
+        </div>
         </form>
     </div>
+  </div>
 </template>
 
 <script>
-    import { mapActions, mapMutations, mapState } from "vuex/dist/vuex.cjs.js";
-    import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
-    export default {
-        name: "Login",
-        data() {
-            return {
-                email: "",
-                password: "",
-            };
-        },
-        methods: {
-            ...mapActions(['GET_INVOICES']),
-            ...mapState(['loggedIn']),
-            ...mapMutations(['SET_LOGGED_IN']),
-            handleLogin() {
-                if (this.email && this.password) {
-                    console.log("Logging in with:", this.email, this.password);
-                    signInWithEmailAndPassword(getAuth(), this.email, this.password)
-                        .then((userCredential) => {
-                            const user = userCredential.user;
-                            console.log("User logged in:", user);
-                            this.SET_LOGGED_IN(true);
-                            this.GET_INVOICES();
-                            this.$router.push({ name: "Home" });
-                        })
-                        .catch((error) => {
-                            const errorCode = error.code;
-                            const errorMessage = error.message;
-                            console.error("Error logging in:", errorCode, errorMessage);
-                        });
-                } else {
-                    alert("Please fill in all fields.");
-                }
-            },
-            signUp() {
-                this.$router.push({ name: "Signup" });
-            },
-        },
+import { mapActions, mapMutations, mapState } from "vuex/dist/vuex.cjs.js";
+import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+
+export default {
+  name: "Login",
+  data() {
+    return {
+      email: "",
+      password: "",
     };
+  },
+  methods: {
+    ...mapActions(['GET_INVOICES']),
+    ...mapMutations(['SET_LOGGED_IN']),
+    handleLogin() {
+      if (this.email && this.password) {
+        signInWithEmailAndPassword(getAuth(), this.email, this.password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            this.SET_LOGGED_IN(true);
+            this.GET_INVOICES();
+            this.$router.push({ name: "Home" });
+          })
+          .catch((error) => {
+            console.error("Error logging in:", error.code, error.message);
+          });
+      } else {
+        alert("Please fill in all fields.");
+      }
+    },
+    signUp() {
+      this.$router.push({ name: "Signup" });
+    },
+    home() {
+      this.$router.push({ name: "Startup" });
+    },
+  },
+};
 </script>
 
 <style scoped>
-.login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+    .logo {
+        max-width: 200px;
+        cursor: pointer;
+    }
 
-h1 {
-    margin-bottom: 20px;
-}
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 2rem;
+    }
 
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
+    .login-box {
+        background-color: #131324;
+        padding: 2rem 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        border: 1px solid #2f2f4f;
+    }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
+    h1 {
+        color: #ffffff;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
 
-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+    .form-group {
+        text-align: left;
+        margin-bottom: 1.25rem;
+    }
 
-.login-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #bbbbdd;
+        font-weight: 600;
+    }
 
-.login-button:hover {
-    background-color: #0056b3;
-}
+    h3 {
+        display: block;
+        color: #bbbbdd;
+        font-weight: 600;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #3c3c5c;
+        background-color: #1e1e2e;
+        color: #ffffff;
+        font-size: 1rem;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #8a84ff;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+
+    .btn {
+        background-color: #8a84ff;
+        color: #ffffff;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #6f69d8;
+    }
 </style>

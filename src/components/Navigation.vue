@@ -2,10 +2,11 @@
   <header class="flex">
     <div class="branding flex">
       <img src="../assets/paytrack-logo.png" alt="" />
-      <button
-        class="btn btn-primary"
-        @click="handleSignOut">sign out</button>
     </div>
+    <button
+      class="btn btn-primary"
+      @click="handleSignOut">Sign Out
+    </button>
   </header>
 </template>
   
@@ -24,7 +25,6 @@
           console.log("User signed out.");
           this.$router.push({ name: "Login" });
           this.SET_LOGGED_IN(false);
-          // this.RESET_INVOICES();
         })
       }
     },
@@ -57,6 +57,32 @@
         height: 50px;
       }
     }
+
+    button {
+      background-color: #f9fafe;
+      color: #7c5dfa;
+      border: none;
+      border-radius: 999px; // pill shape
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(124, 93, 250, 0.3);
+      transition: all 0.3s ease;
+      margin: 16px;
+
+      &:hover {
+        background-color: #ecebff;
+      }
+
+      @media (min-width: 900px) {
+        margin-top: auto;
+        margin-bottom: 20px;
+        width: calc(100% - 32px);
+        align-self: center;
+      }
+    }
+
   }
 </style>
   

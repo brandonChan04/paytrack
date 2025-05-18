@@ -1,19 +1,22 @@
 <template>
     <div class="startup">
+      <div>
         <img src="../assets/paytrack.png" alt="" />
-        <h2>message</h2>
-        <button @click="logIn">
+        <div class="buttons">
+          <button @click="logIn">
             <div class="inner-button">
                 <img src="../assets/plus.svg" alt="" />
             </div>
             <span>Log In</span>
-        </button>
-        <button @click="signUp">
+          </button>
+          <button @click="signUp">
             <div class="inner-button">
                 <img src="../assets/plus.svg" alt="" />
             </div>
             <span>Sign Up</span>
-        </button>
+          </button>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -34,109 +37,62 @@
 </script>
 
 <style lang="scss" scoped>
-  .home {
-    color: #fff;
-  
-    .header {
-      margin-bottom: 65px;
-  
-      .left,
-      .right {
-        flex: 1;
-      }
-  
-      .right {
-        justify-content: flex-end;
+.startup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    img {
+      max-width: 300px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1.5rem;
+
+      button {
+        background-color: #eae6f6;
+        color: #1e1e2f;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 0.75rem 1.5rem;
+        display: flex;
         align-items: center;
-  
-        .button,
-        .filter {
+        gap: 0.5rem;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        .inner-button {
+          background-color: #fff;
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          display: flex;
           align-items: center;
-  
-          span {
-            font-size: 12px;
-          }
-        }
-  
-        .filter {
-          position: relative;
-          margin-right: 40px;
-          cursor: pointer;
-  
+          justify-content: center;
+
           img {
-            margin-left: 12px;
-            width: 9px;
-            height: 5px;
-          }
-  
-          .filter-menu {
-            width: 120px;
-            position: absolute;
-            top: 25px;
-            list-style: none;
-            background-color: #1e2139;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  
-            li {
-              cursor: pointer;
-              font-size: 12px;
-              padding: 10px 20px;
-  
-              &:hover {
-                color: #1e2139;
-                background-color: #fff;
-              }
-            }
+            width: 14px;
+            height: 14px;
           }
         }
 
-        .button-text {
-          background-color: #7c5dfa;
+        &:hover {
+          background-color: #d2ccf2;
+          transform: translateY(-2px);
         }
-  
-        .button {
-          padding: 8px 10px;
-          background-color: #7c5dfa;
-          border-radius: 40px;
-  
-          .inner-button {
-            margin-right: 8px;
-            border-radius: 50%;
-            padding: 8px;
-            align-items: center;
-            justify-content: center;
-            background-color: #fff;
-            img {
-              width: 10px;
-              height: 10px;
-            }
-          }
-        }
-      }
-    }
-  
-    .empty {
-      margin-top: 160px;
-      align-items: center;
-  
-      img {
-        width: 214px;
-        height: 200px;
-      }
-  
-      h3 {
-        font-size: 20px;
-        margin-top: 40px;
-      }
-  
-      p {
-        text-align: center;
-        max-width: 224px;
-        font-size: 12px;
-        font-weight: 300;
-        margin-top: 16px;
       }
     }
   }
+}
 </style>
-  

@@ -29,7 +29,6 @@ export default createStore({
       state.invoiceData = state.invoiceData.filter(invoice => invoice.docId !== payload)
     },
     SET_INVOICE_DATA(state, payload) {
-      // state.invoiceData = [];
       state.invoiceData.push(payload);
       console.log("ah", state.invoiceData)
     },
@@ -66,8 +65,6 @@ export default createStore({
     async GET_INVOICES({ commit, state }) {
       commit("RESET_INVOICE_DATA", state);
       const userId = getAuth().currentUser.uid;
-      // console.log("userId", userId);
-      // const getData = db.collection("invoices");
 
       const getData = db.collection("invoices").where("userId", "==", userId);
       const results = await getData.get();

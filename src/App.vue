@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!mobile" class="app flex flex-column">
-      <Navigation/>
+      <Navigation v-if="loggedIn"/>
       <div class="app-content flex flex-column">
         <Modal v-if="modalActive"/>
         <Transition name="invoice">
@@ -37,9 +37,6 @@
     created() {
       window.addEventListener("resize", this.checkScreen);
       this.checkScreen();
-      // this.GET_INVOICES();
-
-
       const auth = getAuth();
 
       onAuthStateChanged(auth, (user) => {
@@ -47,7 +44,6 @@
           this.GET_INVOICES();
         } else {
           console.log("User not logged in");
-          // this.$router.push({ name: "Login" });
         }
       });
     },
@@ -64,7 +60,7 @@
       }
     },
     computed: {
-      ...mapState(["invoiceModal", "modalActive", "invoicesLoaded"]),
+      ...mapState(["invoiceModal", "modalActive", "invoicesLoaded", "loggedIn"]),
     }
   }
 </script>
