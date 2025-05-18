@@ -1,5 +1,5 @@
 <template>
-  <div v-if="invoicesLoaded">
+  <div>
     <div v-if="!mobile" class="app flex flex-column">
       <Navigation/>
       <div class="app-content flex flex-column">
@@ -19,6 +19,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex/dist/vuex.cjs.js';
+  import { onAuthStateChanged, getAuth } from 'firebase/auth';
   import Modal from './components/Modal.vue';
   import Navigation from './components/Navigation.vue';
   import InvoiceModal from './components/InvoiceModal.vue';
@@ -34,9 +35,21 @@
       Modal
     },
     created() {
-      this.GET_INVOICES();
       window.addEventListener("resize", this.checkScreen);
       this.checkScreen();
+      // this.GET_INVOICES();
+
+
+      const auth = getAuth();
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.GET_INVOICES();
+        } else {
+          console.log("User not logged in");
+          // this.$router.push({ name: "Login" });
+        }
+      });
     },
     methods: {
       ...mapActions(['GET_INVOICES']),

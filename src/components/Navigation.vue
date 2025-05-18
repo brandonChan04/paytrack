@@ -2,13 +2,32 @@
   <header class="flex">
     <div class="branding flex">
       <img src="../assets/paytrack-logo.png" alt="" />
+      <button
+        class="btn btn-primary"
+        @click="handleSignOut">sign out</button>
     </div>
   </header>
 </template>
   
 <script>
+  import { getAuth, signOut } from "firebase/auth";
+  import { mapActions, mapMutations, mapState } from "vuex/dist/vuex.cjs.js";
+
   export default {
     name: "navigation",
+    methods: {
+      ...mapActions(['RESET_INVOICES']),
+      ...mapState(['loggedIn']),
+      ...mapMutations(['SET_LOGGED_IN']),
+      handleSignOut() {
+        signOut(getAuth()).then(() => {
+          console.log("User signed out.");
+          this.$router.push({ name: "Login" });
+          this.SET_LOGGED_IN(false);
+          // this.RESET_INVOICES();
+        })
+      }
+    },
   };
 </script>
   

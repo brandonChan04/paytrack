@@ -112,6 +112,7 @@
           <button v-if="!editInvoice" type="submit" @click="saveDraft" class="dark-purple">Save Draft</button>
           <button v-if="!editInvoice" type="submit" @click="publishInvoice" class="purple">Create Invoice</button>
           <button v-if="editInvoice" type="sumbit" class="purple">Update Invoice</button>
+          <!-- <button @click="submit">jfkdsljfklsd</button> -->
         </div>
       </div>
     </form>
@@ -119,10 +120,11 @@
 </template>
 
 <script>
+  import { getAuth } from 'firebase/auth';
   import { mapMutations, mapState } from 'vuex';
   import { uid } from 'uid';
   import db from "../firebase/firebaseInit";
-import { mapActions } from 'vuex/dist/vuex.cjs.js';
+  import { mapActions } from 'vuex/dist/vuex.cjs.js';
 
   export default {
     // name: "invoiceModal",
@@ -266,6 +268,7 @@ import { mapActions } from 'vuex/dist/vuex.cjs.js';
         const dataBase = db.collection('invoices').doc();
 
         await dataBase.set({
+          userId: getAuth().currentUser.uid,
           invoiceId: uid(6),
           billerStreetAddress: this.billerStreetAddress,
           billerCity: this.billerCity,
@@ -292,6 +295,10 @@ import { mapActions } from 'vuex/dist/vuex.cjs.js';
         this.TOGGLE_INVOICE();
 
         this.GET_INVOICES();
+      },
+
+      submit() {
+        console.log("user", getAuth().currentUser.uid)
       },
 
       submitForm() {

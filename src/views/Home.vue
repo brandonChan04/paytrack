@@ -4,7 +4,7 @@
     <div class="header flex">
       <div class="left flex flex-column">
         <h1>Invoices</h1>
-        <span>There are {{ invoiceData.length }} total invoices</span>
+        <span>You have {{ invoiceData.length }} total invoices</span>
       </div>
       <div class="right flex">
         <div @click="toggleFilterMenu" class="filter flex">
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div v-if="invoiceData.length > 0">
+    <div v-if="this.loggedIn && invoiceData.length > 0">
       <Invoice v-for="(invoice, index) in filteredData":invoice="invoice" :key="index"/>
     </div>
     <div v-else class="empty flex flex-column">
@@ -54,6 +54,7 @@
     },
     methods: {
       ...mapMutations(['TOGGLE_INVOICE', 'TOGGLE_EDIT_INVOICE']),
+      ...mapState(['loggedIn']),
       newInvoice() {
         if(this.editInvoice === true) {
           this.TOGGLE_EDIT_INVOICE();

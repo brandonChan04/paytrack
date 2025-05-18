@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import db from "../firebase/firebaseInit";
+import { getAuth } from "firebase/auth";
 
 export default createStore({
   state: {
@@ -8,11 +9,15 @@ export default createStore({
     editInvoice: null,
     invoiceModal: null,
     invoicesLoaded: null,
-    currentInvoiceArray: null
+    currentInvoiceArray: null,
+    loggedIn: false
   },
   mutations: {
     TOGGLE_INVOICE(state) {
       state.invoiceModal = !state.invoiceModal;
+    },
+    SET_LOGGED_IN(state, payload) {
+      state.loggedIn = payload;
     },
     TOGGLE_MODAL(state) {
       state.modalActive = !state.modalActive;
@@ -24,8 +29,12 @@ export default createStore({
       state.invoiceData = state.invoiceData.filter(invoice => invoice.docId !== payload)
     },
     SET_INVOICE_DATA(state, payload) {
+      // state.invoiceData = [];
       state.invoiceData.push(payload);
       console.log("ah", state.invoiceData)
+    },
+    RESET_INVOICE_DATA(state) {
+      state.invoiceData = [];
     },
     TOGGLE_EDIT_INVOICE(state) {
       state.editInvoice = !state.editInvoice;
@@ -55,7 +64,12 @@ export default createStore({
   },
   actions: {
     async GET_INVOICES({ commit, state }) {
-      const getData = db.collection("invoices");
+      commit("RESET_INVOICE_DATA", state);
+      const userId = getAuth().currentUser.uid;
+      // console.log("userId", userId);
+      // const getData = db.collection("invoices");
+
+      const getData = db.collection("invoices").where("userId", "==", userId);
       const results = await getData.get();
       results.forEach((doc) => {
         if (!state.invoiceData.some((invoice) => invoice.docId === doc.id)) {
